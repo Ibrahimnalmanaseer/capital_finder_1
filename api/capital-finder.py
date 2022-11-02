@@ -42,17 +42,15 @@ class handler(BaseHTTPRequestHandler):
             display=f"The capital of {country} is {capital}"
             self.wfile.write(str(display).encode())
 
-        # elif dic_set['capital']:
-        #     url='https://restcountries.com/v3.1/capital/'
-        #     capital=dic_set['capital']
-        #     r = requests.get(url + capital)
-        #     data = r.json()
-        #     country= data[0]['name']['common']
-        #     display=f"{capital} is the capital of {country}."
-        #     self.wfile.write(str(display).encode())
-        # else:
-        #     display = " no result was found , please try again "
-        #     self.wfile.write(str(display).encode())
+        elif capital:
+            url='https://restcountries.com/v3.1/capital/'
+            capital=dic_set['capital']
+            r = requests.get(url + capital)
+            data = r.json()
+            country= data[0]['name']['common']
+            display=f"{capital} is the capital of {country}."
+            self.wfile.write(str(display).encode())
+        
 
         
 
