@@ -20,11 +20,17 @@ class handler(BaseHTTPRequestHandler):
         url_components=parse.urlsplit(api_path)
         query=parse.parse_qsl(url_components.query)
         dic_set=dict(query)
-       
-       
+        country=dic_set.get('country')
+        capital=dic_set.get('capital')
 
- 
-        if dic_set['country']:
+        if not country and not capital:
+            self.send_response(404)
+            self.send_header('Content-type','text/plain')
+            self.end_headers()
+            self.wfile.write(str('Invalid entry, please try again').encode())
+
+            return 
+        if country:
 
             url='https://restcountries.com/v3.1/name/'
             country=dic_set['country']
@@ -36,17 +42,17 @@ class handler(BaseHTTPRequestHandler):
             display=f"The capital of {country} is {capital}"
             self.wfile.write(str(display).encode())
 
-        elif dic_set['capital']:
-            url='https://restcountries.com/v3.1/capital/'
-            capital=dic_set['capital']
-            r = requests.get(url + capital)
-            data = r.json()
-            country= data[0]['name']['common']
-            display=f"{capital} is the capital of {country}."
-            self.wfile.write(str(display).encode())
-        else:
-            display = " no result was found , please try again "
-            self.wfile.write(str(display).encode())
+        # elif dic_set['capital']:
+        #     url='https://restcountries.com/v3.1/capital/'
+        #     capital=dic_set['capital']
+        #     r = requests.get(url + capital)
+        #     data = r.json()
+        #     country= data[0]['name']['common']
+        #     display=f"{capital} is the capital of {country}."
+        #     self.wfile.write(str(display).encode())
+        # else:
+        #     display = " no result was found , please try again "
+        #     self.wfile.write(str(display).encode())
 
         
 
