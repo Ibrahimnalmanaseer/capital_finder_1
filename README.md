@@ -9,7 +9,7 @@ The project is simple ,using REST Countries API to return the capital of the giv
 
 ### Links and Resources :
 
-- [Deployed on Vercel](https://capital-finder-api-91.vercel.app/api/capital-finder?country=Jordan)
+- [Vercel](https://capital-finder-api-91.vercel.app/api/capital-finder?country=Jordan)
 
 
 ### Setup
